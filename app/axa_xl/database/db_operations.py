@@ -34,7 +34,8 @@ class ConnectionProvider:
             logger.info("Create connection finished")
             provider = cls(connection_pool)
             ConnectionProvider.__INSTANCE = provider
-        logger.info("Created new connection pool")
+            logger.info("Created new connection pool")
+
         return ConnectionProvider.__INSTANCE
 
     @asynccontextmanager
