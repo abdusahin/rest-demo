@@ -51,7 +51,7 @@ class DbOperations:
     @staticmethod
     async def insert_record(table_model: Type[T], db_connection: Connection, record: Mapping[str, Any]) -> T:
         """
-        Inserts into record values into the table model and returns an instance of the table_model
+        Inserts record values into the table model and returns an instance of the table_model
         :param table_model: The table model to return
         :param db_connection: The database connection
         :param record: The table pair of column/value mappings
