@@ -34,7 +34,8 @@ make up
 
 
 # Running tests
-After starting the application with make up, observe the api has started from Docker console logs, then run command 
+After starting the application with make up, observe the api has started from Docker console logs, then run command,
+Note that when services starts up with `make up` command it can take a while for api to be ready.
 ```bash
 make functional-test
 ```
