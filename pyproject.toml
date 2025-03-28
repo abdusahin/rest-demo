@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=62.6", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "demo-project1"
+version = "0.0.1"
+description = "demo-project1"
+requires-python = ">= 3.11"
+dependencies = [
+    "fastapi>=0.115.8",
+    "uvicorn[standard]>=0.34.0",
+    "pydantic>=2.6.3",
+    "asyncpg>=0.30.0",
+    "python-json-logger>=3.2.1",
+    "bugsnag>=4.7.1"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "pytest-xdist",
+    "requests"
+]
+
+
+[tool.setuptools]
+packages = ["app"]
+
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.File", "fastapi.params.Depends", "fastapi.Query", "fastapi.params.Query"]
+
+[tool.ruff.lint]
+select = ["R", "E", "F", "I", "W", "N", "ASYNC", "B", "A", "C4", "COM"]
+ignore = ["F403", "RET504", "N805", "COM812"]
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
