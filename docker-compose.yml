@@ -16,6 +16,8 @@ services:
     container_name: postgres_demo
     env_file:
       - .env
+    environment:
+      POSTGRES_DB: demo
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 10s
@@ -44,8 +46,6 @@ services:
       - 5678:5678
     command: >
       bash -c "
-      psql -h postgres -U postgres -c "DROP DATABASE IF EXISTS demo;" && \
-      psql -h postgres -U postgres -c "CREATE DATABASE demo;" && \
       pip install -e ".[dev]" && \
       cd alembic && alembic upgrade head && \ 
       cd /app && \
