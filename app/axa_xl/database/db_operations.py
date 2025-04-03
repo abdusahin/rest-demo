@@ -71,6 +71,19 @@ class DbOperations:
             RETURNING {",".join(table_model.model_fields.keys())}
         """
         coro = db_connection.fetchrow(query, *values)
-        row = await with_database_call_measurement(query, values, coro)
+        row = await with_database_call_measurement(query, coro, values)
         logger.info("Created new database record", extra={"table": table_model.table_name()})
         return table_model(**dict(row))
+
+    @staticmethod
+    async def get_records(db_connection: Connection):
+        """
+        """
+        query = f"""
+            SELECT * from insurance_quote
+        """
+        coro = db_connection.fetch(query)
+        rows = await with_database_call_measurement(query, coro)
+        logger.info("Returning records %s", rows)
+
+        return rows

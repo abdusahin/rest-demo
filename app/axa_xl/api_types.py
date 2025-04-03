@@ -1,6 +1,6 @@
 from datetime import datetime
 from decimal import Decimal
-from typing import Any
+from typing import Any, List
 
 from pydantic import BaseModel, field_validator, model_validator, StrictBool
 
@@ -40,3 +40,7 @@ class InsuranceQuoteResponse(BaseModel):
     quote_date: datetime
     proposer: str
     vehicle_registration: str
+
+
+class InsuranceQuotesResponse(BaseModel):
+    quotes: List[InsuranceQuoteResponse]

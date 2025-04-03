@@ -1,7 +1,7 @@
 import logging
 import random
 
-from app.axa_xl.api_types import InsuranceQuoteRequest, InsuranceQuoteResponse
+from app.axa_xl.api_types import InsuranceQuoteRequest, InsuranceQuoteResponse, InsuranceQuotesResponse
 from app.axa_xl.database.db_operations import ConnectionProvider, DbOperations
 from app.axa_xl.database.types import InsuranceQuote
 
@@ -33,3 +33,17 @@ async def new_insurance_quote(request: InsuranceQuoteRequest) -> InsuranceQuoteR
         logger.info("Completing new insurance quote request",
                     extra={"vehicle_registration": request.vehicle_registration})
         return response
+
+
+async def get_insurance_quotes() -> InsuranceQuotesResponse:
+    """
+    """
+    logger.info("Retrieve insurance quotes request")
+
+    conn_provider = await ConnectionProvider.create()
+    async with conn_provider.connection() as db_conn:
+        result = await DbOperations.get_records(db_conn)
+        api_response_items = [InsuranceQuoteResponse(**db_record) for db_record in result]
+        final_response = InsuranceQuotesResponse(quotes=api_response_items)
+        logger.info("Returning all quotes")
+        return final_response

@@ -46,7 +46,7 @@ async def with_api_call_measurement(request: Request, callable) -> Response:
     return response
 
 
-async def with_database_call_measurement(query: str, query_params: Iterable[Any], callable) -> Response:
+async def with_database_call_measurement(query: str,  callable, query_params: Iterable[Any] = None) -> Response:
     start_time = time.perf_counter()
     response = await callable
     duration = time.perf_counter() - start_time
