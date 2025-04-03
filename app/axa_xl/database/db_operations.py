@@ -84,6 +84,6 @@ class DbOperations:
         """
         coro = db_connection.fetch(query)
         rows = await with_database_call_measurement(query, coro)
-        logger.info("Returning records %s", rows)
+        logger.info("Returning records")
 
         return rows
